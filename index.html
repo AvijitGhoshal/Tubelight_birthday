@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday! 🎂✨</title>
+
+  <!-- Google Fonts: Hind Siliguri for Bangla & Poppins for English -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #d63384;
+      --primary-light: #f8c8dc;
+      --secondary: #8a4fff;
+      --bg-gradient: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --radius: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: #333;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      padding-bottom: 60px;
+    }
+
+    /* Floating Particles Container */
+    #particle-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .floating-particle {
+      position: absolute;
+      bottom: -50px;
+      animation: floatUp linear infinite;
+      opacity: 0.85;
+      user-select: none;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: transform 0.2s ease;
+    }
+
+    .floating-particle:hover {
+      transform: scale(1.3);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Layout Container */
+    .container {
+      position: relative;
+      z-index: 3;
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Enhanced Music Playlist Widget */
+    .music-widget-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .music-widget {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 8px 16px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow);
+      border: 2px solid #fff;
+    }
+
+    .music-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .music-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #444;
+      max-width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .playlist-select {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      outline: none;
+      color: #444;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 50px 20px 30px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      color: #b02a6b;
+      margin-bottom: 12px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #4a4a4a;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* Section Titles */
+    .section-title {
+      text-align: center;
+      font-size: 1.75rem;
+      color: #3d3b6a;
+      margin: 50px 0 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .envelope-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 30px auto;
+      perspective: 1000px;
+    }
+
+    .envelope-container {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      cursor: pointer;
+      margin-top: 100px;
+    }
+
+    .envelope-pocket {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      border-radius: 0 0 12px 12px;
+      z-index: 10;
+    }
+
+    .letter {
+      position: absolute;
+      bottom: -180px;
+      left: 15px;
+      width: 290px;
+      min-height: 220px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 5;
+      color: #444;
+      border: 1px solid #f1c40f;
+    }
+
+    .letter h3 {
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+      border-bottom: 2px dashed #f8c8dc;
+      padding-bottom: 5px;
+    }
+
+    .letter p {
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .envelope-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #e056fd;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      z-index: 1;
+    }
+
+    .envelope-front-left {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid #be2edd;
+      border-top: 110px solid transparent;
+      border-bottom: 110px solid #be2edd;
+      z-index: 12;
+      border-bottom-left-radius: 12px;
+    }
+
+    .envelope-front-right {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-right: 160px solid #be2edd;
+      border-top: 110px solid transparent;
+      border-bottom: 110px solid #be2edd;
+      z-index: 12;
+      border-bottom-right-radius: 12px;
+    }
+
+    .envelope-front-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-bottom: 120px solid #ab00e3;
+      z-index: 13;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 120px solid #e056fd;
+      transform-origin: top;
+      transition: transform 0.6s ease;
+      z-index: 14;
+    }
+
+    .envelope-container.open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 2;
+    }
+
+    .envelope-container.open .envelope-pocket {
+      overflow: visible !important;
+    }
+
+    .envelope-container.open .letter {
+      bottom: 180px !important;
+      z-index: 30 !important;
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .envelope-hint {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: #666;
+      font-weight: 600;
+    }
+
+    .polaroid-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .polaroid-card {
+      background: white;
+      padding: 12px 12px 25px 12px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .polaroid-card:nth-child(odd) {
+      transform: rotate(-3deg);
+    }
+
+    .polaroid-card:nth-child(even) {
+      transform: rotate(3deg);
+    }
+
+    .polaroid-card:hover {
+      transform: scale(1.08) rotate(0deg);
+      z-index: 15;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .polaroid-card img {
+      width: 100%;
+      height: auto;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .polaroid-caption {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background: #f8c8dc;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      padding: 10px 30px;
+      position: relative;
+      width: 50%;
+    }
+
+    .timeline-item.left {
+      left: 0;
+      text-align: right;
+    }
+
+    .timeline-item.right {
+      left: 50%;
+      text-align: left;
+    }
+
+    .timeline-content {
+      padding: 18px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .timeline-content h4 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .timeline-content p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: var(--primary);
+      border: 3px solid white;
+      top: 20px;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .left .timeline-dot {
+      right: -9px;
+    }
+
+    .right .timeline-dot {
+      left: -9px;
+    }
+
+    .secret-box-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 30px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .pass-input {
+      padding: 10px 15px;
+      font-size: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 25px;
+      text-align: center;
+      width: 180px;
+      margin-right: 10px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .pass-input:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-action {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
+      transition: all 0.3s;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(214, 51, 132, 0.4);
+    }
+
+    .secret-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8fae8;
+      border: 1px solid #58d68d;
+      border-radius: 12px;
+      color: #1e8449;
+      font-weight: 600;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .flip-card {
+      background-color: transparent;
+      height: 250px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flip-card-front {
+      background: #ffffff;
+      color: var(--primary);
+      border: 2px dashed var(--primary-light);
+    }
+
+    .flip-card-front i {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .flip-card-back {
+      background: linear-gradient(135deg, #ffffff 0%, #fff0f5 100%);
+      color: #333;
+      transform: rotateY(180deg);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .reasons-box {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 30px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .reason-display {
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #444;
+      margin: 15px 0;
+      padding: 15px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    /* Cake Styling */
+    .cake-container {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 35px 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .cake {
+      width: 180px;
+      height: 130px;
+      margin: 40px auto 20px;
+      position: relative;
+    }
+
+    .cake-layer {
+      position: absolute;
+      width: 100%;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .layer-bottom {
+      height: 45px;
+      bottom: 0;
+      background: #f7a8b8;
+      border-bottom: 5px solid #e08497;
+    }
+
+    .layer-middle {
+      height: 40px;
+      bottom: 40px;
+      width: 85%;
+      left: 7.5%;
+      background: #fff0f5;
+    }
+
+    .layer-top {
+      height: 35px;
+      bottom: 75px;
+      width: 70%;
+      left: 15%;
+      background: #fbc2eb;
+      border-top: 4px solid #fff;
+    }
+
+    .candle {
+      width: 10px;
+      height: 40px;
+      background: repeating-linear-gradient(45deg, #74b9ff, #74b9ff 6px, #ffffff 6px, #ffffff 12px);
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .flame {
+      width: 14px;
+      height: 22px;
+      background: #ff9f43;
+      border-radius: 50% 50% 20% 20%;
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 12px #ff9f43;
+      animation: flicker 0.6s infinite alternate;
+      cursor: pointer;
+    }
+
+    .flame.blown-out {
+      display: none;
+    }
+
+    @keyframes flicker {
+      0% {
+        transform: translateX(-50%) scale(1);
+      }
+
+      100% {
+        transform: translateX(-50%) scale(1.15);
+      }
+    }
+
+    .cake-wish {
+      display: none;
+      margin-top: 20px;
+      padding: 12px;
+      background: #fff;
+      border-radius: 10px;
+      color: var(--secondary);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.1rem;
+      }
+
+      .timeline::after {
+        left: 20px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        padding-left: 50px;
+        padding-right: 10px;
+      }
+
+      .timeline-item.right {
+        left: 0;
+        text-align: left;
+      }
+
+      .timeline-item.left {
+        text-align: left;
+      }
+
+      .left .timeline-dot,
+      .right .timeline-dot {
+        left: 11px;
+      }
+
+      .music-widget-container {
+        top: 12px;
+        right: 12px;
+      }
+    }
+
+
+
+
+
+    /* Enhanced Footer Design */
+    footer {
+      width: 100vw;
+      width: 100%;
+      text-align: center;
+      margin: 30px 10px 10px 10px;
+      padding: 50px 10px 10px 10px;
+      backdrop-filter: blur(10px);
+      border-top: 2px solid rgba(12, 12, 12, 0.3);
+      box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .footer-container {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Wish Tag Styling */
+    .footer-wish-tag {
+
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--secondary);
+      border: 1px solid rgb(21, 163, 107);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Made with Love Text */
+    .footer-love-text {
+      padding-top:20px ;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #444;
+    }
+
+    .footer-love-text .heart {
+      color: #e74c3c;
+      display: inline-block;
+      animation: heartPulse 1.2s infinite ease-in-out;
+    }
+
+    /* Social Share Buttons */
+    .footer-share-buttons {
+      display: flex;
+      gap: 8px;
+      margin: 4px 0;
+    }
+
+    .share-btn {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1px solid var(--primary-light);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .share-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3);
+    }
+
+    /* Cute Copyright */
+    .footer-copyright {
+      font-size: 0.75rem;
+      color: #fcf9f9;
+      font-weight: 500;
+    }
+
+    /* Heart Pulse Animation */
+    @keyframes heartPulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.25);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .footer-text {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .shop-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .shop-btn {
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+      color: white;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Amazon Button Style */
+    .shop-btn.amazon {
+      background-color: #00ff6e;
+    }
+
+    /* Flipkart Button Style */
+    .shop-btn.flipkart {
+      background-color: #ddd606;
+    }
+
+    /* Hover Effect */
+    .shop-btn:hover {
+      background-color: #027bf4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating Particles Container -->
+  <div id="particle-container"></div>
+
+  <!-- Background Music Playlist Widget -->
+  <div class="music-widget-container">
+    <div class="music-widget">
+      <button class="music-btn" onclick="prevTrack()" title="পূর্ববর্তী গান"><i
+          class="fa-solid fa-backward-step"></i></button>
+      <button class="music-btn" id="playPauseBtn" onclick="togglePlay()"><i class="fa-solid fa-play"
+          id="musicIcon"></i></button>
+      <button class="music-btn" onclick="nextTrack()" title="পরবর্তী গান"><i
+          class="fa-solid fa-forward-step"></i></button>
+      <span class="music-text" id="trackTitle">গান বেছে নিন 🎵</span>
+    </div>
+    <select class="playlist-select" id="playlistSelect" onchange="selectTrack(this.value)">
+      <option value="0">🎵 Happy Birthday</option>
+      <option value="1">🎉 Premika ko Tirth Mano</option>
+      <option value="2">✨ আরো কাছাকাছি আরো কাছে এসো</option>
+      <option value="3">✨ Bumbro</option>
+      <option value="4">✨ Ki Name Deke Bolbo Tomake</option>
+      
+    </select>
+
+
+
+
+  </div>
+
+  <audio id="bgMusic" preload="auto"></audio>
+
+  <div class="container">
+
+    <header class="hero">
+      <span class="hero-badge">✨ ভুলে যাইনি রে🥲 মনে আছে 🙂 ✨</span>
+      <h1>🎉 Happy Birthday,Tubelight! 🎂</h1>
+      <p>তোর জীবনের এই বিশেষ দিনে অনেক ভালোবাসা ও শুভকামনা 🎂✨💖। আজকের দিনটি তোর জন্য হোক আনন্দময় ও
+        স্মরণীয়!🎁🪄🧿🌝👑</p>
+    </header>
+
+    <!-- 1. Enclosed Interactive Envelope Section -->
+    <section>
+      <h2 class="section-title"><i class="fa-solid fa-envelope-open-text"></i> 📌📌ভয় নেই খুলেই দেখ না!!💌✒️✒️</h2>
+      <div class="envelope-wrapper">
+        <div class="envelope-container" id="envelopeContainer" onclick="toggleEnvelope(event)">
+          <div class="envelope-back"></div>
+          <!-- Envelope Pocket concealing the letter -->
+          <div class="envelope-pocket">
+            <div class="letter" id="envelopeLetter">
+              <h3>প্রিয় বন্ধু, 💌</h3>
+              <p>
+                টিউবলাইট 🥲
+                দেখতে দেখতে তো আরো একটা বছর কেটে গেল ! বুড়ি হবার দিকে আরো এক পা এগিয়ে গেছোস🤣। যাইহোক জন্মদিনের অনেক
+                অনেক শুভকামনা!!🎂✨💫
+                তোকে বন্ধু হিসেবে পেয়ে আমার মতো ছেলের জন্য বিশাল কিছু ব্যাপার😇✨। তোর সাথে কাটানো দিনগুলো আমার জীবনের
+                অন্যতম সুন্দর স্মৃতি🖋️♥️। তুই শুধু আমার বন্ধুই নয়, আমার জীবনের অন্যতম সেরা একজন মানুষ🌝👑। তুই সবসময়
+                এই মিষ্টি হাসিটা রাখিস মুখে আর জীবনে অনেক অনেক এগিয়ে যা। তোর সব স্বপ্ন পূরণ হোক 💖🎁🪄🧿🎯
+              </p>
+            </div>
+          </div>
+          <div class="envelope-front-left"></div>
+          <div class="envelope-front-right"></div>
+          <div class="envelope-front-bottom"></div>
+          <div class="envelope-flap"></div>
+        </div>
+        <div class="envelope-hint">✨ চিঠির খামের ওপর ক্লিক করে গোপন বার্তাটি খোলো! ✨</div>
+      </div>
+    </section>
+
+    <!-- 2. Polaroid Photo Gallery -->
+    <section>
+      <h2 class="section-title"><i class="fa-solid fa-camera-retro"></i> সুন্দর কিছু স্মৃতি!!📸</h2>
+      <div class="polaroid-grid">
+        <div class="polaroid-card">
+          <img src="photo1.jpeg" alt="Memory 1">
+          <div class="polaroid-caption">কীসব ফালতু জিনিস 😏👻</div>
+        </div>
+        <div class="polaroid-card">
+          <img src="photo2.jpeg" alt="Memory 2">
+          <div class="polaroid-caption">একটু শান্তিতে ব্রাশ করতেও দেবে না 🥱🪥</div>
+        </div>
+        <div class="polaroid-card">
+          <img src="photo3.jpeg" alt="Memory 3">
+          <div class="polaroid-caption">না...বেশ ভালোই লাগছে তো!!!!😍🥰</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Memory Timeline -->
+    <section>
+      <h2 class="section-title"><i class="fa-solid fa-route"></i> বন্ধুত্বের পথচলা</h2>
+      <div class="timeline">
+        <div class="timeline-item left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>প্রথম কথা 🗣️🤝</h4>
+            <p>কোতুলপুর এর কোথায় বাড়ি?? 👀 রিপ্লাই তো এল কিন্তু বলছে তার নাকি বিয়ে হয়ে গেছে 🙄। তারপর বুঝতে পারলাম
+              ওটা (সত্যি এর বিপরীত শব্দ)।। এই করেই কথা বলা শুরু হলো........🤗</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>ভালো মূহূর্ত ৪০%||ঝগড়া, ব্লক ৬০%🫠</h4>
+            <p>আমাদের দুজনের ভালো সময় কাটানোর থেকে বেশি সময় ঝগড়া, রাগারাগি,ব্লক এটাই বেশি হয়েছে।😅 তবে যেটুকু সময়
+              কাটিয়েছি সারাজীবন মনে থাকবে 😊😇</p>
+          </div>
+        </div>
+        <div class="timeline-item left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>আজকের এই দিন 🌟</h4>
+            <p>বন্ধু ছিলাম, বন্ধু আছি, বন্ধুই থাকব 😌.... সবসময় তোর পাশে থাকব। ব্লক করলেও তোর সাথেই আছি 😇</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Secret Password Box -->
+    <section>
+      <h2 class="section-title"><i class="fa-solid fa-key"></i> গোপন সারপ্রাইজ বক্স</h2>
+      <div class="secret-box-card">
+        <p style="margin-bottom: 15px; color: #555;">সারপ্রাইজ মেসেজ খুলতে সঠিক পাসওয়ার্ড দাও (Hint: Birth Year)</p>
+        <div>
+          <input type="password" id="secretPass" class="pass-input" placeholder="পাসওয়ার্ড লিখুন">
+          <button class="btn-action" onclick="unlockSecret()">আনলক করুন</button>
+        </div>
+        <div id="secretMessage" class="secret-message">
+          🎉 অভিনন্দন! তুই শুধু আমার বন্ধুই নয়, আমার ভালো থাকার ওষুধ 🫣 আমি চাই এই ওষুধ টা যেন কোনদিনও এক্সপায়ার না হয়।🥹🥹
+             ফেসবুক থেকে আনব্লক করে দে🤧🙏🏻🙏🏻🙏🏻🙏🏻
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Interactive Flip Cards -->
+    <section>
+      <h2 class="section-title"><i class="fa-solid fa-gift"></i> শুভেচ্ছাবার্তার কার্ড</h2>
+      <div class="cards-grid">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-heart"></i>
+              <h3>কার্ড #১</h3>
+              <p style="font-size: 0.85rem; color: #777;">ক্লিক করুন</p>
+            </div>
+            <div class="flip-card-back">
+              <p>আজকের এই দিন তোর জীবনে শতবার ফিরে আসুক ✨💖 আর প্রতিবার এই দিনে প্রতিটি মূহুর্ত আনন্দে, হাসিখুশি ভাবে পার করতে পারিস এই প্রার্থনা করি 😇</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-star"></i>
+              <h3>কার্ড #২</h3>
+              <p style="font-size: 0.85rem; color: #777;">ক্লিক করুন</p>
+            </div>
+            <div class="flip-card-back">
+              <p>তোর মুখে সবসময় যেন হাসি বজায় থাকে 🤗 কষ্ট জিনিস টা তোর থেকে শতহাত দূরে থাকুক। তুই যাকে মনপ্রাণ দিয়ে ভালোবাসিস মন থেকে চাস সেই মানুষই যেন তোর জীবনসঙ্গী হয়।✋🏻🙂‍↔️</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <i class="fa-solid fa-crown"></i>
+              <h3>কার্ড #৩</h3>
+              <p style="font-size: 0.85rem; color: #777;">ক্লিক করুন</p>
+            </div>
+            <div class="flip-card-back">
+              <p>নিজের পায়ে দাঁড়িয়ে নিজের একটা পরিচয় তৈরি করে নিজের মনের মতো ভালোবাসার মানুষ কে বিয়ে করিস। ভালোবাসার যদি সবসময় পাশে থাকে তাহলে সব করতে পারবি। তাড়াতাড়ি বিয়ে টা করিস 😁😁</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Special Reason Generator -->
+    <section>
+      <h2 class="section-title"><i class="fa-solid fa-face-smile-beam"></i> তুই কেন এত স্পেশাল?</h2>
+      <div class="reasons-box">
+        <div class="reason-display" id="reasonText">
+          নিচের বাটনে ক্লিক করে জেনে নাও তুই কেন সবার চেয়ে আলাদা! 🌟
+        </div>
+        <button class="btn-action" onclick="nextReason()">কারণ দেখুন ➡️</button>
+      </div>
+    </section>
+
+    <!-- 7. Virtual Birthday Cake -->
+    <section>
+      <h2 class="section-title"><i class="fa-solid fa-cake-candles"></i> ভার্চুয়াল কেক কাটিং</h2>
+      <div class="cake-container">
+        <p style="color: #666; margin-bottom: 10px;">মোমবাতিতে ক্লিক করে মোমবাতি নিভিয়ে ফেলো! 🕯️</p>
+        <div class="cake">
+          <div class="candle" onclick="blowCandle(event)">
+            <div class="flame" id="flame"></div>
+          </div>
+          <div class="cake-layer layer-top"></div>
+          <div class="cake-layer layer-middle"></div>
+          <div class="cake-layer layer-bottom"></div>
+        </div>
+        <div class="cake-wish" id="cakeWish">
+          🥳 Happy Birthday Tubelight! তোর জীবনের নতুন বছরটি আনন্দে ভরে উঠুক! এরপর বিয়ে টা করে নে জানলি!!!!😃✨🎁
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    /* 1. Floating Pop-able Balloons/Stars */
+    function createParticles() {
+      const container = document.getElementById('particle-container');
+      const particleTypes = ['🎈', '💖', '✨', '🌸', '🎉', '⭐'];
+
+      for (let i = 0; i < 25; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'floating-particle';
+        particle.innerText = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+        particle.style.left = Math.random() * 95 + 'vw';
+        particle.style.animationDuration = (Math.random() * 6 + 6) + 's';
+        particle.style.fontSize = (Math.random() * 15 + 20) + 'px';
+        particle.style.animationDelay = (Math.random() * 5) + 's';
+
+        // Pop feature on click
+        particle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          confetti({
+            particleCount: 25,
+            spread: 40,
+            origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight }
+          });
+          particle.remove();
+        });
+
+        container.appendChild(particle);
+      }
+    }
+
+    /* 2. Playlist & Audio Player Logic */
+    const playlist = [
+      {
+        title: "Happy Birthday",
+        src: "Happy Birthday Ishq Forever Nakash Aziz Krishna Chaturvedi & Ruhi Singh.mp3"
+      },
+      {
+        title: "Premika ko Tirth Mano",
+        src: "Premika Ne Pyaar se Original Video #trendingtracks #instatrending A.R. Rahman, & Udit Narayan.mp3"
+      },
+      {
+        title: "আরো কাছাকাছি আরো কাছে এসো",
+        src: "আরো কাছাকাছি আরো কাছে এসো Aro Kachakachi Aro Kache Eso Avijit Bhattacharya Hit Song Sonai.mp3"
+      },
+      {
+        title: "Bumbro",
+        src: "Bumbro - Full Video HD Mission Kashmir Hrithik Roshan, Preity Zinta Sanjay Dutt Hot Hit Hindi.mp3"
+      },
+      {
+        title: "Ki Name Deke Bolbo Tomake",
+        src: "Ki Name Deke Bolbo Tomake Miftah Zaman Latest Bengali Cover Song 2022.mp3"
+      },
+      
+    ];
+
+    let currentTrack = 0;
+    let isPlaying = false;
+    const bgMusic = document.getElementById('bgMusic');
+    const musicIcon = document.getElementById('musicIcon');
+    const trackTitle = document.getElementById('trackTitle');
+    const playlistSelect = document.getElementById('playlistSelect');
+
+    function loadTrack(index) {
+      currentTrack = index;
+      bgMusic.src = playlist[index].src;
+      trackTitle.innerText = playlist[index].title;
+      playlistSelect.value = index;
+    }
+
+    function togglePlay() {
+      if (isPlaying) {
+        bgMusic.pause();
+        musicIcon.className = 'fa-solid fa-play';
+      } else {
+        bgMusic.play().then(() => {
+          musicIcon.className = 'fa-solid fa-pause';
+        }).catch(err => console.log("Playback error:", err));
+      }
+      isPlaying = !isPlaying;
+    }
+
+    function selectTrack(index) {
+      loadTrack(parseInt(index));
+      isPlaying = false;
+      togglePlay();
+    }
+
+    function nextTrack() {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      loadTrack(currentTrack);
+      isPlaying = false;
+      togglePlay();
+    }
+
+    function prevTrack() {
+      currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrack);
+      isPlaying = false;
+      togglePlay();
+    }
+
+    // Auto play next track when current ends
+    bgMusic.addEventListener('ended', nextTrack);
+
+    /* 3. Envelope Toggle Logic */
+    let envelopeOpen = false;
+    function toggleEnvelope(event) {
+      const envelope = document.getElementById('envelopeContainer');
+      envelopeOpen = !envelopeOpen;
+
+      if (envelopeOpen) {
+        envelope.classList.add('open');
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      } else {
+        envelope.classList.remove('open');
+      }
+    }
+
+    /* 4. Secret Password Unlocking */
+    function unlockSecret() {
+      const pass = document.getElementById('secretPass').value;
+      const msg = document.getElementById('secretMessage');
+      if (pass === "2003") {
+        msg.style.display = 'block';
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          origin: { y: 0.7 }
+        });
+      } else {
+        alert("ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ডটি হলো: 2002");
+      }
+    }
+
+    /* 5. Special Reasons Generator Array */
+    const reasons = [
+      "তোর সাথে কথা বললে নিজেকে আর একা মনে হয় না। কেউ একজন আমার সাথে তো আছে😊",
+      "তুই পাশে থাকলে কষ্ট হলেও মনের মধ্যে একটা আলাদা ভালোলাগা কাজ করে 😇🤝",
+      "তোর সেন্স অফ হিউমার সত্যিই অসাধারণ! 🤣",
+      "তুই এমন এক বন্ধু যেটা অনেক ভাগ্যবান বলে আমি পেয়েছি তোকে 😌",
+      "রাগ করিস, ব্লক করিস কিন্তু তারপরও আবার দুজনে এক হয়ে যায় 🙃🌸",
+      "তুই একজন বিশ্বস্ত ও সেরা বন্ধু! ✨"
+    ];
+    let currentReasonIndex = 0;
+
+    function nextReason() {
+      const display = document.getElementById('reasonText');
+      display.innerText = reasons[currentReasonIndex];
+      currentReasonIndex = (currentReasonIndex + 1) % reasons.length;
+    }
+
+    /* 6. Blow Candle Logic */
+    let candleBlown = false;
+    function blowCandle(event) {
+      event.stopPropagation();
+      if (candleBlown) return;
+
+      document.getElementById('flame').classList.add('blown-out');
+      document.getElementById('cakeWish').style.display = 'block';
+      candleBlown = true;
+
+      confetti({
+        particleCount: 150,
+        spread: 90,
+        origin: { y: 0.6 }
+      });
+    }
+
+    /* Window Load Initializer */
+    window.onload = function () {
+      createParticles();
+      loadTrack(0); // Load initial track
+    };
+    /* Fixed Social App Sharing & Copy Link */
+    function shareWebsite() {
+      const shareData = {
+        title: 'Happy Birthday Tubelight! 🎂',
+        text: 'জন্মদিনের এই বিশেষ শুভেচ্ছা পেজটি দেখ! 🎉✨',
+        url: window.location.href
+      };
+
+      // মোবাইলে সোশ্যাল অ্যাপস বা Web Share API সাপোর্ট করলে
+      if (navigator.share) {
+        navigator.share(shareData)
+          .catch((err) => console.log('Share cancelled or failed:', err));
+      } else {
+        // পিসিতে বা ব্রাউজারে না সাপোর্ট করলে সরাসরি হোয়াটসঅ্যাপে শেয়ার লিংক খুলে যাবে
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + " " + shareData.url)}`;
+        window.open(whatsappUrl, '_blank');
+      }
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert("ওয়েবসাইটের লিংকটি কপি করা হয়েছে! 🔗✨");
+      }).catch(() => {
+        // ব্যাকআপ ফালব্যাক (যদি আধুনিক ক্লিপবোর্ড সাপোর্ট না করে)
+        const dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        dummy.value = window.location.href;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        alert("ওয়েবসাইটের লিংকটি কপি করা হয়েছে! 🔗✨");
+      });
+    }
+
+  </script>
+
+
+
+  <!-- Enhanced Birthday Footer -->
+  <footer>
+    <div class="footer-container">
+
+      <!-- স্মারক (Wish Tag) -->
+      <div class="footer-wish-tag">
+        🌟 আজকের দিনটি তোর জীবনে বারবার ফিরে আসুক! 🌟
+      </div>
+
+
+      <p class="footer-text">
+        "Pochondo tor, Bill amar (Cash on Delivary Available)! 🎉 Gift-ta ekhoni choose kor!"
+      </p>
+
+      <div class="=shop-links">
+        <a href="https://www.amazon.in" target="_blank" class="shop-btn amazon">Amazon-e Khojo 🛒</a>
+        <a href="https://www.flipkart.com" target="_blank" class="shop-btn flipkart">Flipkart-e Khojo 🛍️</a>
+      </div>
+
+      <!-- ভালোবাসার মেসেজ -->
+      <p class="footer-love-text">
+        Made by Ghoshal <span class="heart">💖</span> just for Tubelight!
+      </p>
+
+      <!-- শেয়ার বাটন -->
+      <div class="footer-share-buttons">
+        <button class="share-btn" onclick="shareWebsite()">
+          <i class="fa-solid fa-share-nodes"></i> শেয়ার করুন
+        </button>
+        <button class="share-btn" onclick="copyLink()">
+          <i class="fa-solid fa-link"></i> লিংক কপি করুন
+        </button>
+      </div>
+
+      <!-- মজার ও মিষ্টি কপিরাইট -->
+      <p class="footer-copyright">
+        © 2026 | All Happiness Reserved for Tubelight 🎈
+      </p>
+
+
+
+    </div>
+
+    </div>
+  </footer>
+</body>
+
+</html>
